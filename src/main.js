@@ -14,7 +14,7 @@ Vue.use(iView)
 //axios全局配置
 const instance = axios.create({
   //请求接口
-  baseURL: "http://localhost:9998",
+  baseURL: "http://localhost:9997",
   //超时设置
   timeout: 8000,
   //请求头设置
