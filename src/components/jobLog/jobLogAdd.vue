@@ -6,7 +6,9 @@
                     <el-option v-for="item in type" :key="item.value" :label="item.label" :value="item.value"> </el-option> 
                 </el-select>
             </el-form-item>
-
+            <el-form-item label="摘要">
+                <el-input type="textarea" v-model="JobLogRecordVo.summary" class="input-item"></el-input>
+            </el-form-item>
             <el-form-item label="描述">
                 <el-input type="textarea" v-model="JobLogRecordVo.description" class="input-item"></el-input>
             </el-form-item>
@@ -27,6 +29,7 @@ export default {
     return {
       JobLogRecordVo: {
         type: "",
+        summary: "",
         description: "",
         createTime: "",
       },
@@ -44,16 +47,17 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$message({
-        showClose: true,
-        message: "onSubmit",
-        type: "success",
-      });
+
       this.$http
         .post("/jobLog/record/addJobLogRecord", this.JobLogRecordVo)
         .then((data) => {
           console.log(data);
         });
+        this.$message({
+        showClose: true,
+        message: "提交成功",
+        type: "success",
+      });
     },
 
     routeToNavigation() {

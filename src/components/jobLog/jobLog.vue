@@ -9,11 +9,16 @@
       </div>
       <el-button type="primary" @click="jobLogAddVisible = true" style="margin: 10px">新增</el-button>
       <el-table :data="jobLogTable" height="700" border style="width: 100%">
-        <el-table-column prop="typeName" label="类别" width="360">
+        <el-table-column prop="typeName" label="类别" width="150">
         </el-table-column>
-        <el-table-column prop="createTime" label="记录时间" width="360" :formatter="dataFormat" >
-        </el-table-column>
+        <el-table-column prop="summary" label="摘要" width="250" > </el-table-column>
         <el-table-column prop="description" label="描述"> </el-table-column>
+        <el-table-column prop="createTime" label="记录时间" width="160" :formatter="dataFormat" > </el-table-column>
+        <el-table-column fixed="right" label="操作" width="120">
+          <template slot-scope="scope">
+            <el-button @click.native.prevent="deleteRow(scope.$index, jobLogTable)" type="text" size="small">移除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <el-dialog title="新增工作日志" :visible.sync="jobLogAddVisible" width="25%" :before-close="handleClose">
@@ -52,6 +57,14 @@ export default {
   },
 
   methods: {
+    // 删除数据事件
+    deleteRow(index, jobLogTable) {
+      let url = "/jobLog/record/deleteRecordByGid?gid=" + jobLogTable[index].gid;
+      this.$http.get(url).then((res) => {
+        this.jobLogTable = res;
+      });
+      jobLogTable.splice(index, 1);
+    },
     // 弹框关闭事件
     handleClose() {
       this.jobLogAddVisible = false;
