@@ -14,7 +14,7 @@ Vue.use(iView)
 //axios全局配置
 const instance = axios.create({
   //请求接口
-  baseURL: "http://localhost:9997",
+  baseURL: "http://localhost:9997/api/",
   //超时设置
   timeout: 8000,
   //请求头设置
@@ -44,6 +44,7 @@ Vue.prototype.$http = instance
 
 import index from './components/index.vue'
 import weightMange from './components/weightMange/weightMange.vue'
+import joblog from './components/jobLog/jobLog.vue'
 
 const routes = [{
     path: '/',
@@ -56,6 +57,10 @@ const routes = [{
   {
     path: '/weightMange',
     component: weightMange
+  },
+  {
+    path: '/jobLog',
+    component: joblog
   }
 ]
 

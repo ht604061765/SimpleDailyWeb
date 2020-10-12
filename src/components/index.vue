@@ -13,6 +13,14 @@
         </el-col>
         <el-col :span="4" style="margin:0px 10px 0px 10px">
           <el-card :body-style="{ padding: '0px' }" shadow="hover">
+            <img src="../assets/jobLog.png" class="image" @click="routeToJobLogMange">
+            <div style="padding: 14px;float: right;">
+              <el-button type="success" @click="routeToJobLogMange">工作日志</el-button>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="4" style="margin:0px 10px 0px 10px">
+          <el-card :body-style="{ padding: '0px' }" shadow="hover">
             <img src="../assets/lueluelue.jpg" class="image" @click="pendingCode">
             <div style="padding: 14px;float: right;">
               <el-button type="success" @click="pendingCode">其他功能</el-button>
@@ -52,6 +60,10 @@ export default {
 
     routeToWeightMange() {
       this.$router.replace('/weightMange')
+    },
+
+    routeToJobLogMange() {
+      this.$router.replace('/joblog')
     }
 
   }
@@ -77,6 +89,7 @@ export default {
 
 .image {
   width: 100%;
+  height: 250px;
   display: block;
 }
 

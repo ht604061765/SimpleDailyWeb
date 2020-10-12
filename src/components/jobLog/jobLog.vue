@@ -7,44 +7,32 @@
         <el-date-picker v-model="daterangeparam" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" ></el-date-picker>
         <el-button type="primary" @click="getTableData" style="margin: 10px;">查询</el-button>
       </div>
-      <el-button type="primary" @click="weightAddVisible = true" style="margin: 10px">新增</el-button>
-      <el-table :data="weightTable" height="700" border style="width: 100%">
-        <el-table-column prop="weight" label="体重" width="360">
+      <el-button type="primary" @click="jobLogAddVisible = true" style="margin: 10px">新增</el-button>
+      <el-table :data="jobLogTable" height="700" border style="width: 100%">
+        <el-table-column prop="typeName" label="类别" width="360">
         </el-table-column>
-        <el-table-column
-          prop="createTime"
-          label="记录时间"
-          width="360"
-          :formatter="dataFormat"
-        >
+        <el-table-column prop="createTime" label="记录时间" width="360" :formatter="dataFormat" >
         </el-table-column>
-        <el-table-column prop="createUserName" label="人员名称" width="360">
-        </el-table-column>
-        <el-table-column prop="remark" label="备注"> </el-table-column>
+        <el-table-column prop="description" label="描述"> </el-table-column>
       </el-table>
 
-      <el-dialog
-        title="新增体重记录"
-        :visible.sync="weightAddVisible"
-        width="25%"
-        :before-close="handleClose"
-      >
-        <weightAdd> </weightAdd>
+      <el-dialog title="新增工作日志" :visible.sync="jobLogAddVisible" width="25%" :before-close="handleClose">
+        <jobLogAdd> </jobLogAdd>
       </el-dialog>
     </div>
     <common-footer />
   </div>
 </template>
 <script>
-import weightAdd from "./weightAdd";
+import jobLogAdd from "./jobLogAdd";
 import commonHeader from "../../common/commonHeader";
 import commonFooter from "../../common/commonFooter";
 import * as fecha from "element-ui/lib/utils/date";
 
 export default {
-  name: "weightMange",
+  name: "jobLogManage",
   components: {
-    weightAdd,
+    jobLogAdd,
     commonHeader,
     commonFooter,
   },
@@ -52,8 +40,8 @@ export default {
   // 基本数据
   data() {
     return {
-      weightAddVisible: false,
-      weightTable: [],
+      jobLogAddVisible: false,
+      jobLogTable: [],
       daterangeparam:''
     };
   },
@@ -66,7 +54,7 @@ export default {
   methods: {
     // 弹框关闭事件
     handleClose() {
-      this.weightAddVisible = false;
+      this.jobLogAddVisible = false;
     },
 
     // 加载数据列表
@@ -81,8 +69,8 @@ export default {
         param.endTime = this.daterangeparam[1].getTime()
       }
       
-      this.$http.post("/weight/record/getWeightList", param).then((res) => {
-        this.weightTable = res;
+      this.$http.post("/jobLog/record/getJobLogRecordList", param).then((res) => {
+        this.jobLogTable = res;
       });
     },
 
